@@ -9,6 +9,7 @@ const DynamicPage = () => {
     <div>
       <h1>Dynamic URL Page (Slug)</h1>
       <h3>My slug: {slug}</h3>
+      <button onClick={() => router.push("/")}>{"< "}Back to Homepage</button>
     </div>
   );
 };
