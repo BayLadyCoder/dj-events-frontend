@@ -3,6 +3,7 @@ import Head from "next/head";
 import Header from "./Header";
 import Footer from "./Footer";
 import styles from "@/styles/Layout.module.css";
+import Showcase from "./Showcase";
 
 const Layout = ({ title, description, keywords, children }) => {
   return (
@@ -13,6 +14,7 @@ const Layout = ({ title, description, keywords, children }) => {
         <meta name="keywords" content={keywords} />
       </Head>
       <Header />
+      <Showcase />
       <div className={styles.container}>{children}</div>
       <Footer />
     </div>
