@@ -13,6 +13,12 @@ export default function Home({ events }) {
       {events.map((evt) => (
         <EventItem key={evt.id} event={evt} />
       ))}
+
+      {events.length > 0 && (
+        <Link href="/events">
+          <a className="btn-secondary">View All Events</a>
+        </Link>
+      )}
     </Layout>
   );
 }
@@ -22,6 +28,6 @@ export const getStaticProps = async () => {
   const events = await res.json();
 
   return {
-    props: { events },
+    props: { events: events.slice(0, 3) },
   };
 };
