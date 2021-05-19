@@ -13,6 +13,17 @@ const EventItem = ({ event }) => {
           height={100}
         />
       </div>
+      <div className={styles.info}>
+        <span>
+          {event.date} at {event.time}
+        </span>
+        <h3>{event.name}</h3>
+      </div>
+      <div className={styles.link}>
+        <Link href={`/events/${event.slug}`}>
+          <a className="btn">Details</a>
+        </Link>
+      </div>
     </div>
   );
 };
