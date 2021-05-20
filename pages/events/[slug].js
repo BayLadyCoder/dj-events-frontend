@@ -2,17 +2,50 @@ import React from "react";
 import { useRouter } from "next/router";
 import Layout from "@/components/Layout";
 import { API_URL } from "@/config/index";
+import styles from "@/styles/Event.module.css";
+import Link from "next/link";
+import Image from "next/image";
+import { FaPencilAlt, FaTimes } from "react-icons/fa";
 
-const EventPage = ({ events }) => {
-  const router = useRouter();
-  const slug = router.query.slug;
-  //   console.log(router);
-  console.log("events", events);
+const EventPage = ({ event }) => {
+  const deleteEvent = (e) => {
+    console.log("delete event");
+  };
   return (
     <Layout>
-      <h1>Dynamic URL Page (Slug)</h1>
-      <h3>{events.name}</h3>
-      <button onClick={() => router.push("/")}>{"< "}Back to Homepage</button>
+      <div className={styles.event}>
+        <div className={styles.controls}>
+          <Link href={`/events/edit/${event.id}`}>
+            <a>
+              <FaPencilAlt /> Edit Event
+            </a>
+          </Link>
+          <a href="#" className={styles.delete} onClick={deleteEvent}>
+            <FaTimes /> Delete Events
+          </a>
+        </div>
+        <span>
+          {event.dat} at {event.time}
+        </span>
+        <h1>{event.name}</h1>
+        {event.image && (
+          <div className={styles.image}>
+            <Image src={event.image} width={960} height={600} />
+          </div>
+        )}
+        <h3>Performers:</h3>
+        <p>{event.performers}</p>
+
+        <h3>Description:</h3>
+        <p>{event.description}</p>
+
+        <h3>Venue: {event.venue}</h3>
+        <p>{event.address}</p>
+
+        <Link href="/events">
+          <a className={styles.back}>{"<"}Go Back</a>
+        </Link>
+      </div>
     </Layout>
   );
 };
@@ -33,7 +66,7 @@ export const getStaticProps = async ({ params: { slug } }) => {
   const events = await res.json();
 
   return {
-    props: { events: events[0] },
+    props: { event: events[0] },
     revalidate: 1,
   };
 };
